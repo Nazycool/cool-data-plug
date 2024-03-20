@@ -1,0 +1,170 @@
+{% extends "main.html" %}
+ {% load static %}
+  {% block style %}
+<link rel="stylesheet" href="{% static 'css/data-list.css' %}" />
+{% endblock style %} {% block title %}Glo Data List{% endblock title %}
+ {% block content %}
+ <nav>
+  <div class="data__list__container">
+    <!-- <div class="data__list__options option-2 active"><h2>MTN SME</h2></div> -->
+    <button type="button" class="btn__toggle active">MTN SME</button>
+    <div class="data__list__options option-1">
+      <img src="{% static 'images/glo.jpg' %}" alt="" srcset="" />
+    </div>
+    <button type="button" class="btn__toggle">MTN CG</button>
+    <!-- <div class="data__list__options option-2"><h2>MTN CG</h2></div> -->
+  </div>
+</nav>
+<main>
+  <div class="main__section show">
+    <div class="main__section__items">
+      <p>500MB (SMS)</p>
+      <h4>₦2,000</h4>
+
+      <div class="borderred">
+        <p>30 Days</p>
+      </div>
+    </div>
+    <div class="main__section__items">
+      <p>500MB (SMS)</p>
+      <h4>₦2,000</h4>
+
+      <div class="borderred">
+        <p>30 Days</p>
+      </div>
+    </div>
+    <div class="main__section__items">
+      <p>500MB (SMS)</p>
+      <h4>₦2,000</h4>
+
+      <div class="borderred">
+        <p>30 Days</p>
+      </div>
+    </div>
+    <div class="main__section__items">
+      <p>500MB (SMS)</p>
+      <h4>₦2,000</h4>
+
+      <div class="borderred">
+        <p>30 Days</p>
+      </div>
+    </div>
+    <div class="main__section__items">
+      <p>500MB (SMS)</p>
+      <h4>₦2,000</h4>
+
+      <div class="borderred">
+        <p>30 Days</p>
+      </div>
+    </div>
+    <div class="main__section__items">
+      <p>500MB (SMS)</p>
+      <h4>₦2,000</h4>
+
+      <div class="borderred">
+        <p>30 Days</p>
+      </div>
+    </div>
+    <div class="main__section__items">
+      <p>500MB (SMS)</p>
+      <h4>₦2,000</h4>
+
+      <div class="borderred">
+        <p>30 Days</p>
+      </div>
+    </div>
+    <div class="main__section__items">
+      <p>500MB (SMS)</p>
+      <h4>₦2,000</h4>
+
+      <div class="borderred">
+        <p>30 Days</p>
+      </div>
+    </div>
+    <div class="main__section__items">
+      <p>500MB (SMS)</p>
+      <h4>₦2,000</h4>
+
+      <div class="borderred">
+        <p>30 Days</p>
+      </div>
+    </div>
+    <div class="main__section__items">
+      <p>500MB (SMS)</p>
+      <h4>₦2,000</h4>
+
+      <div class="borderred">
+        <p>30 Days</p>
+      </div>
+    </div>
+
+    <div class="main__section__items">
+      <p>500MB (SMS)</p>
+      <h4>₦2,000</h4>
+
+      <div class="borderred">
+        <p>30 Days</p>
+      </div>
+    </div>
+
+    <div class="main__section__items">
+      <p>500MB (SMS)</p>
+      <h4>₦2,000</h4>
+
+      <div class="borderred">
+        <p>30 Days</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="main__section">
+    <div class="main__section__items">
+      <p>500MB (SMS)</p>
+      <h4>₦1,000</h4>
+
+      <div class="borderred">
+        <p>30 Days</p>
+      </div>
+    </div>
+
+    <div class="main__section__items">
+      <p>500MB (SMS)</p>
+      <h4>₦1,000</h4>
+
+      <div class="borderred">
+        <p>30 Days</p>
+      </div>
+    </div>
+  </div>
+
+  <form action="" id="fixed_bar">
+    <div class="input__container">
+      <div><i class="fa fa-phone" aria-hidden="true"></i></div>
+      <input type="number" name="phone" id="phone" placeholder="Phone Number">
+    </div>
+
+    <button type="button" id="btn">CONTINUE</button>
+  </form>
+
+</main>
+{% endblock content %}
+
+
+{% block script %}
+<script>
+  const btnToggle = document.querySelectorAll('.btn__toggle');
+  const all_sections = document.querySelectorAll('.main__section');
+
+  btnToggle.forEach((btn, index )=>{
+    btn.addEventListener('click', function () {
+      btnToggle.forEach(tab=>{ tab.classList.remove('active')});
+     btn.classList.add('active');
+     all_sections.forEach(container=>{
+      container.classList.remove('show');
+    })
+    all_sections[index].classList.add('show');
+    })
+   
+  });
+</script>
+{% endblock script %}

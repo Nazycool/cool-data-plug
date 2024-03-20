@@ -1,0 +1,134 @@
+{% extends "main.html" %}
+
+{% load static %}
+
+{% block title %}
+Cool Data Plug Register
+{% endblock title %}
+
+{% block content %}
+<section class="register">
+    <div class="register__item register__bg">
+        <div class="register__content">
+            <div class="content__center">
+                <img src="../images/download.png " alt="cool data plug logo" class="regiser__logo rotate-scale-up"
+                    srcset="" />
+                <h2 class="title title__size">
+                    COOL <span style="color: #003e77">DATA</span> PLUG
+                </h2>
+                <h1>
+                    The best platform to purchase the most affordable and cheapest data,
+                    Airtime, Cable Subscription, Utility Bill Payment and so much more
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="register__item register">
+       <a href="{% url 'home' %}"> <img src="../images/download.png " alt="cool data plug logo" class="regiser__logo" srcset="" /></a>
+        <h2 class="title register__h2" style="line-height: 20px">
+            COOL <span style="color: #003e77">DATA</span> PLUG
+        </h2>
+        <p class="login__p-text">Let's get you signed up today!</p>
+
+        <form class="register__form" id="register__form" onsubmit="return validateForm()" method="post" action="">
+
+            {% csrf_token %}
+            <span class="error__text" id="error">{{message}}</span>
+
+            <div class="form__inputs__split">
+                <div class="form__input" id="fname__container">
+                    <div><i class="fa fa-user" aria-hidden="true"></i></div>
+
+                    <input type="text" placeholder="Full Name" class="poppins-light" id="fname" name="fname" required />
+                </div>
+
+                <div class="form__input" id="username__container">
+                    <div><i class="fa fa-user" aria-hidden="true"></i></div>
+
+                    <input type="text" placeholder="Username" class="poppins-light" id="username" name="username"
+                        required />
+                </div>
+            </div>
+
+            <div class="form__input" id="pnumber__container">
+                <div><i class="fa fa-phone" aria-hidden="true"></i></div>
+
+                <input type="number" placeholder="Phone Number" class="poppins-light" id="pnumber" name="pnumber"
+                    required />
+            </div>
+
+            <div class="form__input" id="email__container">
+                <div><i class="fa fa-envelope" aria-hidden="true"></i></div>
+
+                <input type="email" placeholder="Enter Your Email" class="poppins-light" id="email" name="email"
+                    required />
+            </div>
+
+            <div class="form__input" id="pass1__container">
+                <div><i class="fa fa-key" aria-hidden="true"></i></div>
+                <input type="password" placeholder="Password" class="poppins-light" id="pass1" name="pass" required />
+            </div>
+            <div class="form__input" id="pass2__container">
+                <div><i class="fa fa-key" aria-hidden="true"></i></div>
+                <input type="password" placeholder="Confirm Password" class="poppins-light" id="pass2" name="pass"
+                    required />
+            </div>
+            <div class="form__input">
+                <div>
+                    <i class="fa fas fa-people-arrows" aria-hidden="true"></i>
+                </div>
+                <input type="number" placeholder="Referral Number (Optional)" class="poppins-light" id="refp"
+                    name="refp" />
+            </div>
+
+            <div class="form__checked">
+                <input type="checkbox" name="check" id="check" />
+
+                <span class="poppins-light">
+                    Accept our
+                    <a style="color: #003e77" class="poppins-regular"
+                        href="https://09032334313.blogspot.com/p/cool-data-plug-terms-and-conditions.html?m=1"
+                        target="_blank" rel="noopener noreferrer">Terms & Condition</a>
+                    to proceed
+                </span>
+            </div>
+
+            <button type="submit" class="regiser__button">Register</button>
+            <p class="poppins-light">
+                Already have an account ?
+                <a href="{% url 'login' %}" class="message">Sign In</a>
+            </p>
+
+            <p class="poppins-light">
+                Need help?
+                <a href="#" class="poppins-regular">Chat our Customer Care</a>
+            </p>
+        </form>
+    </div>
+</section>
+{% endblock content %}
+
+{% block script %}
+<script src="{% static 'js/cool_register.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script>
+    let err = '{{error}}';
+
+    if(err==='True'){
+        showAlert('{{message}}');
+    }
+
+
+    function showAlert(title) {
+        swal({
+          text: title,
+          dangerMode: true,
+          buttons: true,
+          closeOnClickOutside: false,
+          timer: 6000,
+        });
+      }
+</script>
+
+{% endblock script %}

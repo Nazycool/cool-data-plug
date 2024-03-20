@@ -1,0 +1,134 @@
+{% extends "main.html" %}
+{% load static %}
+{% block title %}
+        Cool Data Plug Login
+{% endblock title %}
+
+{% block content %}
+ <main>
+      <section class="register">
+        <div class="register__item register__bg">
+          <div class="register__content">
+            <div class="content__center">
+              <img
+                src="../images/download.png "
+                alt="cool data plug logo"
+                class="regiser__logo rotate-scale-up"
+                srcset=""
+              />
+              <h2 class="title title__size">
+                COOL <span style="color: #003e77">DATA</span> PLUG
+              </h2>
+              <h1>
+                The best platform to purchase the most affordable and cheapest
+                data, Airtime, Cable Subscription, Utility Bill Payment and so
+                much more
+              </h1>
+            </div>
+          </div>
+        </div>
+
+        <div class="register__item login">
+        
+          <a href="{% url 'home' %}">   <img
+            src="../images/download.png "
+            alt="cool data plug logo"
+            class="regiser__logo show"
+            style="
+              display: flex;
+              justify-content: center;
+              align-content: center;
+
+              margin: 0 auto;
+            "
+            srcset=""
+          /></a>
+
+          <h2 class="title register__h2" style="line-height: 20px">
+            COOL <span style="color: #003e77">DATA</span> PLUG
+          </h2>
+          <p class="login__p-text">We are glad to have you back again!</p>
+
+          <form
+            class="register__form"
+            id="register__form"
+            onsubmit="return validateLoginForm()"
+            method="post"
+            action=""
+          >
+          {% csrf_token %}
+            <span class="error__text" id="error">{{message}}</span>
+            <div class="form__input" id="pnumber__container">
+              <div><i class="fa fa-user" aria-hidden="true"></i></div>
+
+              <input
+                type="number"
+                placeholder="Phone Number"
+                class="poppins-light"
+                id="pnumber"
+                name="pnumber"
+                required
+              />
+            </div>
+            <div class="form__input" id="pass__container">
+              <div><i class="fa fa-key" aria-hidden="true"></i></div>
+              <input
+                type="password"
+                placeholder="Password"
+                class="poppins-light"
+                id="pass1"
+                name="pass1"
+                required
+              />
+            </div>
+            <a class="forgot-p" href="{% url 'forgot' %}">Forgot Password ?</a>
+            <button type="submit" class="regiser__button">Login</button>
+            <!-- <input type="submit" value="Login" class="regiser__button" /> -->
+            <p class="poppins-light">
+              Don't have an account ?
+              <a href="{% url "register" %}" class="message">Sign Up Now</a>
+            </p>
+  
+            <p class="poppins-light">
+              Need help?
+              <a href="" class="poppins-regular">Chat our Customer Care</a>
+            </p>
+          </form>
+        </div>
+      </section>
+    </main>
+{% endblock content %}
+
+{% block script %}
+ <script src="{% static 'js/cool_register.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+
+
+    <script>
+      let err = '{{error}}';
+
+    if(err==='True'){
+      showSweetAlert('{{message}}', '', false);
+    }
+
+
+    function showAlert(title) {
+        swal({
+          text: title,
+          dangerMode: true,
+          buttons: true,
+          closeOnClickOutside: false,
+          timer: 6000,
+        });
+      }
+
+      function showSweetAlert(title, text, isSuccess) {
+        Swal.fire({
+          icon: isSuccess ? "success" : "error",
+          title: title,
+          text: text,
+          confirmButtonColor: "#1682e7",
+        });
+      }
+    </script>
+{% endblock script %}

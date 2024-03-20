@@ -1,0 +1,86 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+<!-- Header -->
+<header>
+    <div class="info__header">
+        <div class="info__header__item">
+            <i class="fa fa-phone" aria-hidden="true"></i>
+            <p style="padding-left: 20px">+234-7011090902</p>
+        </div>
+        <div class="info__header__item">
+            <i class="fa-brands fa-facebook"></i>
+            <i class="fa-brands fab fa-google-plus"></i>
+            <i class="fa-brands fab fa-whatsapp"></i>
+        </div>
+    </div>
+
+    <div class="header__logo">
+        <div class="logo">
+            <img src="../images/download.png" alt="" srcset="" />
+            <h2 class="title">
+                Cool
+                <span style="color: #003e77; letter-spacing: 2px">Data</span> Plug
+            </h2>
+        </div>
+        <div class="getit">
+            <img src="../images/plw.PNG" alt="play store" />
+            <img src="../images/pl.PNG" alt="app store" />
+        </div>
+        <div class="toggle__menu">
+            <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </div>
+    </div>
+
+    <div class="dropdown__menu">
+        <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veniam, qui
+            rerum dolore minima distinctio fugit sed ut officia asperiores vero
+            architecto aliquam magnam incidunt sit excepturi et consectetur
+            molestias quidem.
+        </p>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="hero__item">
+        <h2 class="welcome-text">Welcome to</h2>
+        <h2 class="title title__size">
+            COOL <span style="color: #003e77">DATA</span> PLUG
+        </h2>
+        <p>
+            The best platform to purchase the most <br />
+            affordable and cheapest data, Airtime, <br />
+            Cable Subscription, Utility Bill Payment and <br />
+            so much more
+        </p>
+
+        <div class="buttons">
+            <button type="button"><a href="{% url 'login' %}">LOGIN</a></button>
+            <button type="button"><a href="{% url 'register' %}">REGISTER</a></button>
+        </div>
+    </div>
+    <div class="last">
+        <div class="img">
+            <!-- <img src="../images/Ellipse 2.png" alt="" srcset="" />
+              <img src="../images/Ellipse 1.png" alt="" srcset="" /> -->
+
+            <img class="elipse" src="../images/Ellipse 2.png" alt="" srcset="" />
+            <img src="../images/Frame 7.png" alt="" />
+        </div>
+    </div>
+</section>
+
+<section class="about">
+    <div class="about__title">
+        <h2>ABOUT COOL DATA PLUG</h2>
+    </div>
+</section>
+
+{% endblock content %}
+
+{% block script %}
+<script src="../js/script.js"></script>
+{% endblock script %}
