@@ -8,3 +8,5 @@ toggle.onclick = function () {
 
   toggle_icon.classList = isOpen ? "fa-solid fa-xmark" : "fa-solid fa-bars";
 };
+
+

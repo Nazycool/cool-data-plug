@@ -24,14 +24,16 @@ def myDashborad(request):
         payloads = {'Auth01': auth_token}
         response = requests.post(
             'https://gtopup.site/coolDataPlug/user_get_data.php', data=payloads)
-        if   response.status_code==200:
+        if response.status_code == 200:
             print(response.json())
         return render(request, 'base/dashboard.html', response.json())
     else:
         return redirect('login')
 
 # {'error': False, 'type': '1', 'status': '1', 'balance': '0', 'WemaBank': '', 'SterlingBank': '', 'rolex': '', 'RefWallet': '0', 'Fidelity': ''}
-# 
+#
+
+
 def register(request):
     if request.method == 'POST':
 
@@ -100,7 +102,13 @@ def login_view(request):
                 res = redirect('dashboard')
 
                 # Set the auth_token in a cookie
-                res.set_cookie('auth_token', token)
+                # res.set_cookie('auth_token', token)
+                res.set_cookie('auth_token', token, expires=datetime.utcnow(
+                ) + timedelta(minutes=10))  # Expires in 10 minutes
+                res.set_cookie('username', username, expires=datetime.utcnow(
+                ) + timedelta(minutes=10))  # Expires in 10 minutes
+                res.set_cookie('status', status, expires=datetime.utcnow(
+                ) + timedelta(minutes=10))  # Expires in 10 minutes
 
                 # Store user's data in the session
                 # request.session['auth_token'] = token
@@ -140,14 +148,16 @@ def forgot_password(request):
 # 3 API - API Price
 
 
-def mtn_data_list(request, network):
+def mtn_data_list(request, network, type):
     response = requests.post(
-        f'https://gtopup.site/coolDataPlug/get_data_list.php?network={network}&type=SME')
+        f'https://gtopup.site/coolDataPlug/get_data_list.php?network={network}&type={type}')
 
     if response.status_code == 200:
+        status = request.COOKIES.get('status')
 
-        print(response.json())
-    return render(request, 'base/mtn-data-list.html', {'data': response.json().get('data'), 'network': network, 'type': type})
+        # print(response.json())
+        # print(status)
+    return render(request, 'base/mtn-data-list.html', {'data': response.json().get('data'), 'network': network, 'type': type, 'status': status})
 
 
 def airtel_data_list(request, network):
@@ -183,3 +193,11 @@ def nineMobile_data_list(request, network):
 def process_purchase(request, amount):
     context = {'amount': amount}
     return render(request, 'base/process.html', context)
+
+def create_pin(request):
+    return render(request, 'base/create-pin.html')
+
+def buy_airtime(request):
+#    if request.method == 'POST':
+       
+    return render(request, 'base/buy-airtime.html')

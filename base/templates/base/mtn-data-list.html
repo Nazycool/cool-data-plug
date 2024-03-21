@@ -14,7 +14,7 @@
 <nav>
   <div class="data__list__container">
     <!-- <div class="data__list__options option-2 active"><h2>MTN SME</h2></div> -->
-    <button type="button" class="btn__toggle active">{{network|upper}} SME</button>
+    <button type="button" class="btn__toggle active" id="button1">{{network|upper}} SME</button>
     <div class="data__list__options option-1">
    {% if network == 'Airtel' %}  
     <img src="{% static 'images/airtel.png' %}" alt="" srcset="" />
@@ -26,7 +26,7 @@
     <img src="{% static 'images/mtn.png' %}" alt="" srcset="" />
     {% endif %}
     </div>
-    <button type="button" class="btn__toggle">{{network|upper}} CG</button>
+    <button type="button" class="btn__toggle" id="button2">{{network|upper}} CG</button>
     <!-- <div class="data__list__options option-2"><h2>MTN CG</h2></div> -->
   </div>
 </nav>
@@ -39,7 +39,15 @@
       <div class="main__section__items">
         <p>{{i.eSize}}{{i.eUnit}}</p>
 
-       <div class="price"> <h4>₦{{i.eUserPrice}}</h4></div>
+        {% if status == 1 %}
+        <div class="price"> <h4>₦{{i.eUserPrice}}</h4></div>
+        {% elif status == 2 %}
+        <div class="price"> <h4>₦{{i.eAgentPrice}}</h4></div>
+        {% else %}
+        <div class="price"> <h4>₦{{i.eAPIPrice}}</h4></div>
+        {% endif %}
+
+      
       
         <div class="borderred">
           {% if i.eDays == '7 Days' %}
@@ -94,30 +102,65 @@
 
 {% block script %}
 <script>
-  const btnToggle = document.querySelectorAll('.btn__toggle');
-  const all_sections = document.querySelectorAll('.main__section');
-  const data_items = document.querySelectorAll('.main__section__items');
+ 
 
-  btnToggle.forEach((btn, index )=>{
-    btn.addEventListener('click', function () {
-      btnToggle.forEach(tab=>{ tab.classList.remove('active')});
-     btn.classList.add('active');
-     all_sections.forEach(container=>{
-      container.classList.remove('show');
-    })
-    all_sections[index].classList.add('show');
-    })
+ 
+function updateUrlParameter(key, value) {
+  const url = new URL(window.location.href);
+
+  if (url.searchParams.has(key)) {
+    url.searchParams.set(key, value);
+  } else {
+    url.searchParams.append(key, value);
+  }
+  window.location.href = url.toString();
+}
+
+const btnToggle = document.querySelectorAll(".btn__toggle");
+const all_sections = document.querySelectorAll(".main__section");
+const data_items = document.querySelectorAll(".main__section__items");
+
+const button1 = document.getElementById("button1");
+const button2 = document.getElementById("button2");
+
+btnToggle.forEach((btn, index) => {
+  btn.addEventListener("click", function () {
+    btnToggle.forEach((tab) => {
+      tab.classList.remove("active");
+    });
+    btn.classList.add("active");
+    all_sections.forEach((container) => {
+      container.classList.remove("show");
+    });
+    all_sections[index].classList.add("show");
+  });
+  
+  if (btn.id === "button1") {
+    btn.addEventListener("click", function () {
+      updateUrlParameter("type", "SME");
+    });
+  } else if (btn.id === "button2") {
    
-  });
+    btn.addEventListener("click", function () {
+      updateUrlParameter("type", "CORPORATE");
+    });
+  }
 
-  data_items.forEach(item => {
-    item.addEventListener('click', function () {
-      data_items.forEach(tn=>{tn.classList.remove('selected')});
+});
 
-      item.classList.add('selected');
-      
-    })
+data_items.forEach((item) => {
+  item.addEventListener("click", function () {
+    data_items.forEach((tn) => {
+      tn.classList.remove("selected");
+    });
+
+    item.classList.add("selected");
   });
+});
+
+
+
+
 </script>
 {% endblock script %}
 

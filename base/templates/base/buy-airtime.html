@@ -1,0 +1,100 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block title %}Buy Airtime{% endblock title %}
+{% block style %}<link rel="stylesheet" href="{% static 'css/buy-airtime.css' %}" />{% endblock style %}
+
+{% block content %}
+<section class="buy__airtime">
+    <div class="airtime__input">
+        <div><i class="fa far fa-money-bill-alt" aria-hidden="true"></i></div>
+        <input type="number" name="amount" id="amount" placeholder="Other amount">
+    </div>
+
+    <div class="amount__grid">
+        <div class="prices ">N50</div>
+        <div class="prices">N100</div>
+        <div class="prices">N200</div>
+        <div class="prices">N300</div>
+        <div class="prices">N500</div>
+        <div class="prices">N700</div>
+        <div class="prices">N1,000</div>
+        <div class="prices">N1,500</div>
+        <div class="prices">N2,000</div>
+    </div>
+
+
+    <div class="services__grid">
+        <div class="service__item">
+            <div class="icon">
+                <img src="{% static 'images/9mobile.jpg' %}" alt="" srcset="">
+            </div>
+            <h5>9Mobile</h5>
+        </div>
+        <div class="service__item">
+            <div class="icon">
+                <img src="{% static 'images/glo.jpg' %}" alt="" srcset="">
+            </div>
+            <h5>Glo</h5>
+        </div>
+        <div class="service__item">
+            <div class="icon">
+                <img src="{% static 'images/airtel.png' %}" alt="" srcset="">
+            </div>
+            <h5>Airtel</h5>
+        </div>
+        <div class="service__item">
+            <div class="icon">
+                <img src="{% static 'images/mtn.png' %}" alt="" srcset="">
+            </div>
+            <h5>MTN</h5>
+        </div>
+    </div>
+
+    <form action="">
+        <div class="airtime__input">
+            <div><i class="fa fa-phone" aria-hidden="true"></i></div>     
+            <input type="number" name="phone" id="phone" placeholder="Enter Phone Number">
+        </div>
+
+        <button type="submit" id="btn">PURCHASE</button>
+    </form>
+
+</section>
+{% endblock content %}
+
+{% block script %}
+<script>
+   const all_prices = document.querySelectorAll(".prices");
+   const service__item = document.querySelectorAll(".service__item");
+   let amount = document.getElementById("amount");
+
+all_prices.forEach((btn) => {
+  btn.addEventListener("click", function () {
+    all_prices.forEach((conatiner) => {
+      conatiner.classList.remove("active");
+     
+    });
+
+    var newAmount = btn.textContent.slice(1);
+   newAmount = parseInt(newAmount);
+ 
+
+    btn.classList.add("active");
+    amount.value = newAmount;
+  });
+});
+service__item.forEach((btn) => {
+  btn.addEventListener("click", function () {
+    service__item.forEach((conatiner) => {
+      conatiner.classList.remove("active");
+     
+    });
+
+    btn.classList.add("active");
+  });
+});
+
+
+</script>
+{% endblock script %}
