@@ -28,7 +28,7 @@
     <div class="left__item">
       <h4 class="balance">Wallet Balance</h4>
       <div class="item__hide">
-        <h2 class="show">₦5,600</h2>
+        <h2 class="show">₦{{balance}}</h2>
         <i class="fa-solid far fa-eye-slash" aria-hidden="true"></i>
       </div>
 
@@ -56,7 +56,7 @@
         <div class="mini__pre__content">
           <h4>Sterling</h4>
           <div class="mini__pre__content__half">
-            <h4>9393893949</h4>
+            <h4>{{SterlingBank}}</h4>
             <i
               class="fa-solid far far fa-copy"
               aria-hidden="true"
@@ -100,7 +100,7 @@
 
     <p class="quick__service">Quick Data</p>
     <div class="quick__data__container">
-     <a href="{% url '9mobile-data-list' %}">
+     <a href="{% url '9mobile-data-list' network='9Mobile' %}">
       <div class="quick__data__item">
         <div class="service__icon">
           <img src="../images/9mobile.jpg" alt="" srcset="" />
@@ -108,7 +108,7 @@
         <h2>9Mobile Data</h2>
       </div>
      </a>
-     <a href="{% url 'glo-data-list' %}">
+     <a href="{% url 'glo-data-list' network='Glo' %}">
       <div class="quick__data__item">
         <div class="service__icon">
           <img src="../images/glo.jpg" alt="" srcset="" />
@@ -116,7 +116,7 @@
         <h2>Glo Data</h2>
       </div>
      </a>
-     <a href="{% url 'airtel-data-list' %}">
+     <a href="{% url 'airtel-data-list' network='Airtel' %}">
       <div class="quick__data__item">
         <div class="service__icon">
           <img src="../images/airtel.png" alt="" srcset="" />
@@ -124,7 +124,7 @@
         <h2>Airtel Data</h2>
       </div>
      </a>
-     <a href="{% url 'mtn-data-list' %}">
+     <a href="{% url "mtn-data-list" network='MTN' %}">
       <div class="quick__data__item">
         <div class="service__icon">
           <img src="../images/mtn.png" alt="" srcset="" />

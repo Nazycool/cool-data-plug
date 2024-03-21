@@ -1,5 +1,10 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
+
+from datetime import datetime, timedelta
+
+
 import requests
 
 from base.check_connection import check_internet_connection
@@ -11,10 +16,22 @@ def home(request):
     return render(request, 'base/home.html', {})
 
 
+@login_required
 def myDashborad(request):
-    return render(request, 'base/dashboard.html', {})
+    auth_token = request.COOKIES.get('auth_token')
 
+    if auth_token:
+        payloads = {'Auth01': auth_token}
+        response = requests.post(
+            'https://gtopup.site/coolDataPlug/user_get_data.php', data=payloads)
+        if   response.status_code==200:
+            print(response.json())
+        return render(request, 'base/dashboard.html', response.json())
+    else:
+        return redirect('login')
 
+# {'error': False, 'type': '1', 'status': '1', 'balance': '0', 'WemaBank': '', 'SterlingBank': '', 'rolex': '', 'RefWallet': '0', 'Fidelity': ''}
+# 
 def register(request):
     if request.method == 'POST':
 
@@ -80,6 +97,11 @@ def login_view(request):
                 name = user_data.get('Name')
                 email = user_data.get('Email')
 
+                res = redirect('dashboard')
+
+                # Set the auth_token in a cookie
+                res.set_cookie('auth_token', token)
+
                 # Store user's data in the session
                 # request.session['auth_token'] = token
                 # request.session['username'] = username
@@ -87,7 +109,7 @@ def login_view(request):
                 # request.session['email'] = email
 
                 # Redirect user to dashboard
-                return redirect('dashboard')
+                return res
             else:
                 return render(request, 'base/login.html', user_data)
         else:
@@ -98,10 +120,14 @@ def login_view(request):
 
 
 def logout_view(request):
-    logout(request)
+
     # Optionally, clear any session data related to the user
-    request.session.clear()
-    return redirect('login')
+    # Create an HTTP response object
+    response = redirect('login')
+
+    # Set the auth_token cookie's expiration time to a past date to delete it
+    response.set_cookie('auth_token', '', expires=datetime(1970, 1, 1))
+    return response
 
 
 def forgot_password(request):
@@ -109,13 +135,51 @@ def forgot_password(request):
 
 # {'error': False, 'message': 'Login Successfully', 'Authentication': '873e430d2ec8403cfdec55583de9c5ef6adfc', 'User': 'amarr', 'Name': 'Usman Aminu Usman',
 #     'Email': 'uthmanameen2003@gmail.com', 'Phone': '08097256756', 'Type': '1', 'Status': '1', 'Referral': '', 'RegDate': '2024-03-16 12:22:55', 'WemaBank': '', 'rolex': '', }
+# 1 Regular - User Price
+# 2 Agent - Agent Price
+# 3 API - API Price
 
 
-def mtn_data_list(request):
-    return render(request, 'base/mtn-data-list.html')
-def airtel_data_list(request):
-    return render(request, 'base/airtel-data-list.html')
-def glo_data_list(request):
-    return render(request, 'base/glo-data-list.html')
-def nineMobile_data_list(request):
-    return render(request, 'base/9mobile-data-list.html')
+def mtn_data_list(request, network):
+    response = requests.post(
+        f'https://gtopup.site/coolDataPlug/get_data_list.php?network={network}&type=SME')
+
+    if response.status_code == 200:
+
+        print(response.json())
+    return render(request, 'base/mtn-data-list.html', {'data': response.json().get('data'), 'network': network, 'type': type})
+
+
+def airtel_data_list(request, network):
+    response = requests.post(
+        f'https://gtopup.site/coolDataPlug/get_data_list.php?network={network}&type=CORPORATE')
+
+    if response.status_code == 200:
+
+        print(response.json())
+    return render(request, 'base/airtel-data-list.html', {'data': response.json().get('data'), 'network': network, 'type': type})
+
+
+def glo_data_list(request, network):
+    response = requests.post(
+        f'https://gtopup.site/coolDataPlug/get_data_list.php?network={network}&type=CORPORATE')
+
+    if response.status_code == 200:
+
+        print(response.json())
+    return render(request, 'base/glo-data-list.html', {'data': response.json().get('data'), 'network': network, 'type': type})
+
+
+def nineMobile_data_list(request, network):
+    response = requests.post(
+        f'https://gtopup.site/coolDataPlug/get_data_list.php?network={network}&type=CORPORATE')
+
+    if response.status_code == 200:
+
+        print(response.json())
+    return render(request, 'base/9mobile-data-list.html', {'data': response.json().get('data'), 'network': network, 'type': type})
+
+
+def process_purchase(request, amount):
+    context = {'amount': amount}
+    return render(request, 'base/process.html', context)

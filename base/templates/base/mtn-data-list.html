@@ -2,120 +2,61 @@
  {% load static %}
   {% block style %}
 <link rel="stylesheet" href="{% static 'css/data-list.css' %}" />
+
+<style>
+  a:hover{
+    background-color: transparent;
+    text-decoration: none;
+  }
+</style>
 {% endblock style %} {% block title %}MTN Data List{% endblock title %}
  {% block content %}
 <nav>
   <div class="data__list__container">
     <!-- <div class="data__list__options option-2 active"><h2>MTN SME</h2></div> -->
-    <button type="button" class="btn__toggle active">MTN SME</button>
+    <button type="button" class="btn__toggle active">{{network|upper}} SME</button>
     <div class="data__list__options option-1">
-      <img src="{% static 'images/mtn.png' %}" alt="" srcset="" />
+   {% if network == 'Airtel' %}  
+    <img src="{% static 'images/airtel.png' %}" alt="" srcset="" />
+    {% elif network == '9Mobile' %}
+    <img src="{% static 'images/9mobile.jpg' %}" alt="" srcset="" />
+    {% elif network == 'Glo' %}
+    <img src="{% static 'images/glo.jpg' %}" alt="" srcset="" />
+    {% else %}
+    <img src="{% static 'images/mtn.png' %}" alt="" srcset="" />
+    {% endif %}
     </div>
-    <button type="button" class="btn__toggle">MTN CG</button>
+    <button type="button" class="btn__toggle">{{network|upper}} CG</button>
     <!-- <div class="data__list__options option-2"><h2>MTN CG</h2></div> -->
   </div>
 </nav>
 
 <main>
   <div class="main__section show" >
-    <div class="main__section__items">
-      <p>500MB (SMS)</p>
-      <h4>₦2,000</h4>
+    
+    {% for i in  data%}
+    <a href="{% url 'process' amount=i.eId %}" style=" color: #010101;">
+      <div class="main__section__items">
+        <p>{{i.eSize}}{{i.eUnit}}</p>
 
-      <div class="borderred">
-        <p>30 Days</p>
+       <div class="price"> <h4>₦{{i.eUserPrice}}</h4></div>
+      
+        <div class="borderred">
+          {% if i.eDays == '7 Days' %}
+          <p>0{{i.eDays}}</p>
+          {% else %}
+          <p>{{i.eDays}}</p>
+          {% endif %}
+         
+        </div>
       </div>
-    </div>
-    <div class="main__section__items">
-      <p>500MB (SMS)</p>
-      <h4>₦2,000</h4>
+    </a>
+      {% endfor %}
 
-      <div class="borderred">
-        <p>30 Days</p>
-      </div>
-    </div>
-    <div class="main__section__items">
-      <p>500MB (SMS)</p>
-      <h4>₦2,000</h4>
 
-      <div class="borderred">
-        <p>30 Days</p>
-      </div>
-    </div>
-    <div class="main__section__items">
-      <p>500MB (SMS)</p>
-      <h4>₦2,000</h4>
-
-      <div class="borderred">
-        <p>30 Days</p>
-      </div>
-    </div>
-    <div class="main__section__items">
-      <p>500MB (SMS)</p>
-      <h4>₦2,000</h4>
-
-      <div class="borderred">
-        <p>30 Days</p>
-      </div>
-    </div>
-    <div class="main__section__items">
-      <p>500MB (SMS)</p>
-      <h4>₦2,000</h4>
-
-      <div class="borderred">
-        <p>30 Days</p>
-      </div>
-    </div>
-    <div class="main__section__items">
-      <p>500MB (SMS)</p>
-      <h4>₦2,000</h4>
-
-      <div class="borderred">
-        <p>30 Days</p>
-      </div>
-    </div>
-    <div class="main__section__items">
-      <p>500MB (SMS)</p>
-      <h4>₦2,000</h4>
-
-      <div class="borderred">
-        <p>30 Days</p>
-      </div>
-    </div>
-    <div class="main__section__items">
-      <p>500MB (SMS)</p>
-      <h4>₦2,000</h4>
-
-      <div class="borderred">
-        <p>30 Days</p>
-      </div>
-    </div>
-    <div class="main__section__items">
-      <p>500MB (SMS)</p>
-      <h4>₦2,000</h4>
-
-      <div class="borderred">
-        <p>30 Days</p>
-      </div>
-    </div>
-
-    <div class="main__section__items">
-      <p>500MB (SMS)</p>
-      <h4>₦2,000</h4>
-
-      <div class="borderred">
-        <p>30 Days</p>
-      </div>
-    </div>
-
-    <div class="main__section__items">
-      <p>500MB (SMS)</p>
-      <h4>₦2,000</h4>
-
-      <div class="borderred">
-        <p>30 Days</p>
-      </div>
-    </div>
+    
+    
+    
   </div>
 
   <div class="main__section">
@@ -155,6 +96,7 @@
 <script>
   const btnToggle = document.querySelectorAll('.btn__toggle');
   const all_sections = document.querySelectorAll('.main__section');
+  const data_items = document.querySelectorAll('.main__section__items');
 
   btnToggle.forEach((btn, index )=>{
     btn.addEventListener('click', function () {
@@ -166,6 +108,15 @@
     all_sections[index].classList.add('show');
     })
    
+  });
+
+  data_items.forEach(item => {
+    item.addEventListener('click', function () {
+      data_items.forEach(tn=>{tn.classList.remove('selected')});
+
+      item.classList.add('selected');
+      
+    })
   });
 </script>
 {% endblock script %}

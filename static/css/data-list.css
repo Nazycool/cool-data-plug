@@ -76,15 +76,25 @@ main {
   box-shadow: 1px 1px 2px 2px rgba(175, 174, 174, 0.644);
 
   z-index: 1;
+ 
+}
+.selected {
+  background-color: #cfe3f7;
 }
 
-main .main__section{
+main .main__section {
   margin-bottom: 50%;
+}
+.main__section__items > p {
+  width: 20%;
+  padding-left: 2%;
 }
 
 .main__section__items h4 {
-  font-weight: bold;
+  font-weight: lighter;
   font-size: 18px;
+
+  font-family: Arial, Helvetica, sans-serif;
 }
 .borderred p {
   margin-top: 10px;
@@ -133,6 +143,7 @@ form {
 }
 
 #btn {
+
   width: 100%;
   padding: 3%;
   margin-top: 5%;
@@ -149,8 +160,8 @@ form {
 #btn:hover {
   background-color: #003e77;
 }
-.show{
-    display: block;
+.show {
+  display: block;
 }
 
 /* NEW */
@@ -169,7 +180,7 @@ form {
 }
 
 #fixed_bar {
-  /* display: none; */
+  display: none;
   position: fixed;
   left: 0;
   bottom: 0;

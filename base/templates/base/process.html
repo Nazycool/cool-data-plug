@@ -1,0 +1,102 @@
+{% extends "main.html" %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/process.css' %}" />
+{% endblock style %} 
+
+{% block title %}Confirm{% endblock title %}
+
+{% block content %}
+<section class="process__section">
+    <img
+    src="{% static 'images/buy.png' %}"
+    alt="cool data plug logo"
+    class="regiser__logo show"
+    style="
+      display: flex;
+      justify-content: center;
+      align-content: center;
+
+      margin: 0 auto;
+      width: 200px;
+    "
+  />    
+  <h4 style="text-align: center;">MTN 2GB - 30 Days</h4>
+  <form action="" onsubmit="return validateProcessForm()" method="post">
+    {% csrf_token %}
+      <span class="error__text" id="error">{{message}}</span>
+        <div class="input__container">
+          <div><i class="fa far fa-money-bill-alt" aria-hidden="true"></i></div>
+          <input type="number" name="phone" id="phone" placeholder="{{amount}} Naira" disabled>
+        </div>
+        
+        <div class="input__container" id="pnumber__container">
+          <div><i class="fa fa-phone" aria-hidden="true"></i></div>
+          <input type="number" name="phone" id="phone" placeholder="Beneficiary Number" required>
+        </div>
+
+        <div class="by-pass">
+            <p>Bypass Number Validator</p>
+            <input type="checkbox" name="" id="">
+        </div>
+
+        <div class="by-pass">
+            <!-- <p>Bypass Number Validator</p>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+              </label>
+        </div> -->
+    
+        <button type="submit" id="btn">BUY</button>
+      </form>
+</section>
+{% endblock content %}
+
+{% block script %}
+<script>
+    let phoneNumber = document.getElementById("phone");
+    let containers = document.getElementsByClassName("input__container");
+
+    function validateProcessForm() {
+        //Phone Number Conditions
+       if (phoneNumber.value.length > 11) {
+    showAlert("Phone number must not exceed 11 digits");
+    errorContainer(containers, "pnumber__container");
+    return false;
+  }else if (phoneNumber.value.length < 11) {
+    showAlert("Incomplete phone number");
+    errorContainer(containers, "pnumber__container");
+    return false;
+  }
+        return true;
+}
+
+
+function showAlert(title) {
+  swal({
+    text: title,
+    dangerMode: true,
+    buttons: true,
+    closeOnClickOutside: false,
+    timer: 6000,
+  });
+}
+
+
+function errorContainer(containers, containerId) {
+  for (const c in containers) {
+    if (Object.hasOwnProperty.call(containers, c)) {
+      const element = containers[c];
+
+      element.classList.remove("error__border");
+
+      if (element.id === containerId) {
+        element.classList.add("error__border");
+      }
+    }
+  }
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+{% endblock script %}

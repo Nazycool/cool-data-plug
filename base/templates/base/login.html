@@ -47,7 +47,7 @@
           <h2 class="title register__h2" style="line-height: 20px">
             COOL <span style="color: #003e77">DATA</span> PLUG
           </h2>
-          <p class="login__p-text">We are glad to have you back again!</p>
+          <p class="login__p-text" >We are glad to have you back again!</p>
 
           <form
             class="register__form"
@@ -57,7 +57,7 @@
             action=""
           >
           {% csrf_token %}
-            <span class="error__text" id="error">{{message}}</span>
+            <span class="error__text" id="error" style="line-height: 1px">{{message}}</span>
             <div class="form__input" id="pnumber__container">
               <div><i class="fa fa-user" aria-hidden="true"></i></div>
 

@@ -10,9 +10,12 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     
     
-    path('mtn-data-list/', views.mtn_data_list, name='mtn-data-list'),
-    path('9mobile-data-list/', views.nineMobile_data_list, name='9mobile-data-list'),
-    path('glo-data-list/', views.glo_data_list, name='glo-data-list'),
-    path('airtel-data-list/', views.airtel_data_list, name='airtel-data-list'),
+    path('mtn-data-list/<str:network>/', views.mtn_data_list, name='mtn-data-list'),
+    path('9mobile-data-list/<str:network>/', views.nineMobile_data_list, name='9mobile-data-list'),
+    path('glo-data-list/<str:network>/', views.glo_data_list, name='glo-data-list'),
+    path('airtel-data-list/<str:network>/', views.airtel_data_list, name='airtel-data-list'),
+    
+    
+    path('process/<str:amount>/', views.process_purchase, name='process'),
     
 ]
