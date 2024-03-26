@@ -67,11 +67,46 @@
 <body>
 
     {% block content %}
+    <p class="click">Click</p>
+<div class="pop_up">
+    <div class="pop_up_cancel">
+        <img class="cancel" src="{% static 'images/cancel.png' %}" alt="pop up image">
+    </div>
+    <div class="pop_up_image">
+        <img  src="{% static 'images/pop-image.png' %}" alt="pop up image">
+    </div>
 
+    <div class="pop_up_content">
+        <h4 class="success">Succesful</h4>
+        
+        <h4 class="pop_text">Your 2GB Data Purchase was Succesful</h4>
+        <p>Thanks for using this service</p>
+    </div>
+
+    <button type="button" class="pop__btn">
+        <i class="fa-solid fa-arrow-left" ></i>
+        Go Back
+    </button>
+</div>
     {% endblock content %}
 
 
     {% block script %}
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+    <script>
+       
+    </script>
     {% endblock script %}
 </body>
 

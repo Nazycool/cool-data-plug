@@ -191,13 +191,41 @@ def nineMobile_data_list(request, network):
 
 
 def process_purchase(request, amount):
+    if request.method == 'POST':
+        phone_number = request.POST['phone']
+        print(phone_number)
+        return redirect('create-pin')
     context = {'amount': amount}
     return render(request, 'base/process.html', context)
 
+
 def create_pin(request):
+    if request.method == 'POST':
+        context = {
+            'error': False,
+            'show': True,
+            'header': 'success',
+        }
+        return render(request, 'base/create-pin.html', context)
     return render(request, 'base/create-pin.html')
 
+
 def buy_airtime(request):
-#    if request.method == 'POST':
-       
-    return render(request, 'base/buy-airtime.html')
+    if request.method == 'POST':
+        # Getting the post fields
+        service = request.POST['service']
+        amount = request.POST['amount']
+        phone = request.POST['phone']
+
+        # Processing
+        print(service)
+        print(amount)
+        print(phone)
+
+        return render(request, 'base/buy-airtime.html')
+    else:
+        return render(request, 'base/buy-airtime.html')
+
+
+def popup(request):
+    return render(request, 'base/alert.html', {})

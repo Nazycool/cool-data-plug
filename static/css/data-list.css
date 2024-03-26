@@ -51,7 +51,7 @@ nav {
 }
 
 main {
-  margin-top: 60px;
+  margin-top: 80px;
 }
 .main__section {
   width: 96%;
@@ -76,7 +76,6 @@ main {
   box-shadow: 1px 1px 2px 2px rgba(175, 174, 174, 0.644);
 
   z-index: 1;
- 
 }
 .selected {
   background-color: #cfe3f7;
@@ -88,13 +87,20 @@ main .main__section {
 .main__section__items > p {
   width: 20%;
   padding-left: 2%;
+
+  font-family: "Poppins";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
 }
 
 .main__section__items h4 {
-  font-weight: lighter;
-  font-size: 18px;
+  font-family: "Poppins";
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 21px;
 
-  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
 }
 .borderred p {
   margin-top: 10px;
@@ -120,33 +126,39 @@ form {
   margin: 5% 2%;
 }
 .input__container {
+  width: 90%;
   display: flex;
-  justify-content: start;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+
+  gap: 20px;
 
   border-radius: 10px;
   background-color: #fff;
   box-shadow: 1px 1px 2px 2px rgba(212, 212, 212, 0.644);
 
   padding: 0 2%;
+  margin: auto;
 
   line-height: 40px;
-  height: 40px;
+  height: 50px;
 }
 .input__container i {
-  font-size: 13px;
+  font-size: 15px;
 }
 .input__container input {
-  margin-left: 3%;
   width: 100%;
   border: none;
   outline: none;
 }
 
 #btn {
-
-  width: 100%;
-  padding: 3%;
-  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  padding: 4% 3%;
+  margin: 5% auto;
 
   background-color: var(--primary-color);
   box-shadow: 8px 10px 10px 1px rgba(136, 166, 248, 0.5);
@@ -155,6 +167,7 @@ form {
   outline: none;
 
   color: #fff;
+  transition: 0.5s ease-in;
 }
 
 #btn:hover {
@@ -178,7 +191,10 @@ form {
   background-color: var(--primary-color);
   color: #fff;
 }
-
+#fixed_bar {
+  display: none;
+}
+/* 
 #fixed_bar {
   display: none;
   position: fixed;
@@ -188,4 +204,4 @@ form {
   text-align: center;
   z-index: 100;
   background-color: #eee;
-}
+} */

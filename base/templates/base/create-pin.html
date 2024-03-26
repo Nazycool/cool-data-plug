@@ -1,103 +1,153 @@
 {% extends "main.html" %}
-{% load static %}
+{% load static %} {% block title %}Create Pin{%endblock title %}
 
-{% block title %}Create Pin{% endblock title %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/back-header-style.css' %}" />
+<link rel="stylesheet" href="{% static 'css/create-pin.css' %}" />
+{% endblock style %}
 
 {% block content %}
-<section class="create__pin__section">
-    <form>
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    </form>
+<section class="back-container">
+  <div class="back-airtime">
+    <div><i class="fa-solid fa-arrow-left"></i></div>
+    <p>Airtime</p>
+  </div>
+  <div class="back-history"><p>History</p></div>
 </section>
-{% endblock content %}
 
+<section class="create__pin__section">
+  <div class="create__pin__content">
+    <h4>Are you sure want to purchase 500MB MTN SME Plan to 080 0000 000</h4>
+    <p>Kindly Insert your transaction pin</p>
+  </div>
+
+  <form action="" method="post" onsubmit="return checkPin()">
+    {% csrf_token %}
+    <div class="pin__input pin__input">
+      <div><i class="fa fa-phone" aria-hidden="true"></i></div>
+      <input
+        type="text"
+        name="pin"
+        id="pin"
+        placeholder="Enter 4Digits Pin"
+        required
+        readonly
+      />
+    </div>
+
+    <div class="input__buttons">
+      <div class="input__buttons__item">1</div>
+      <div class="input__buttons__item">2</div>
+      <div class="input__buttons__item">3</div>
+      <div class="input__buttons__item">4</div>
+      <div class="input__buttons__item">5</div>
+      <div class="input__buttons__item">6</div>
+      <div class="input__buttons__item">7</div>
+      <div class="input__buttons__item">8</div>
+      <div class="input__buttons__item">9</div>
+      <div class="input__buttons__item" id="clear">Clear</div>
+      <div class="input__buttons__item">0</div>
+      <div class="input__buttons__item" id="del">Del</div>
+    </div>
+
+    <button type="submit" class="pop__btn">Purchase</button>
+  </form>
+
+  <div class="pop_up">
+    <div class="pop_up_cancel">
+      <img
+        class="cancel"
+        src="{% static 'images/cancel.png' %}"
+        alt="pop up image"
+      />
+    </div>
+    <div class="pop_up_image">
+      <img src="{% static 'images/pop-image.png' %}" alt="pop up image" />
+    </div>
+
+    <div class="pop_up_content">
+      <h4 class="{{header}}">Succesful</h4>
+
+      <h4 class="pop_text">Your 2GB Data Purchase was Succesful</h4>
+      <p>Thanks for using this service</p>
+    </div>
+
+    <button type="button" class="pop__btn">
+      <i class="fa-solid fa-arrow-left"></i>
+      Go Back
+    </button>
+  </div>
+</section>
+{% endblock content %} 
 {% block script %}
+<script>
+  let pin = document.getElementById("pin");
+  let pinButtons = document.querySelectorAll(".input__buttons__item");
+  let popUp = document.querySelector(".pop_up");
+
+  let cancel = document.querySelector(".cancel");
+
+  var show = `{{show}}`;
+  if (show == 'True') {
+    showPopUp();
+  }
+
+  cancel.addEventListener("click", function () {
+    hidePopUp();
+  });
+
+  pinButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (btn.id == "clear") {
+        clearPin();
+      } else if (btn.id == "del") {
+        cancelLastPin();
+      } else {
+        pin.value = pin.value + btn.textContent;
+      }
+    });
+  });
+
+  function clearPin() {
+    pin.value = "";
+  }
+
+  function cancelLastPin() {
+    var currentPin = pin.value;
+    var newPin = currentPin.substring(0, currentPin.length - 1);
+
+    pin.value = newPin;
+  }
+
+  function checkPin() {
+    if (pin.value.length > 4) {
+      showPopUp();
+      return false;
+    }
+    if (pin.value.length < 4) {
+      showPopUp();
+      return false;
+    }
+    return true;
+  }
+
+  function showPopUp() {
+    popUp.style.opacity = "1";
+    popUp.style.pointerEvents = "auto";
+    popUp.style.userSelect = "auto";
+
+    document.body.style.backgroundColor = "grey";
+    document.body.style.pointerEvents = "none";
+    document.body.style.userSelect = "none";
+  }
+  function hidePopUp() {
+    popUp.style.opacity = "0";
+    popUp.style.pointerEvents = "none";
+    popUp.style.userSelect = "none";
+
+    document.body.style.backgroundColor = "#eee";
+    document.body.style.pointerEvents = "auto";
+    document.body.style.userSelect = "auto";
+  }
+</script>
 {% endblock script %}

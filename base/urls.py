@@ -20,6 +20,7 @@ urlpatterns = [
     path('create-pin/', views.create_pin, name='create-pin'),
     
     path('buy-airtime/', views.buy_airtime, name='airtime'),
+    path('popup/', views.popup, name='popup'),
     
     
 ]

@@ -1,0 +1,32 @@
+.back-container {
+    width: 100%;
+    padding: 5%;
+  
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+  
+    background-color: #09b5ff24;
+  }
+  .back-container p {
+    font-family: var(--font-inter);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+    text-align: left;
+  }
+  .back-history {
+    color: var(--primary-color);
+  }
+  .back-airtime {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+  .back-airtime > div {
+    margin-right: 20px;
+  }
+  .back-airtime i {
+    font-size: 16px;
+    color: black;
+  }

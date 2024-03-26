@@ -2,14 +2,23 @@
 {% load static %}
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/process.css' %}" />
+<link rel="stylesheet" href="{% static 'css/back-header-style.css' %}" />
+
 {% endblock style %} 
 
 {% block title %}Confirm{% endblock title %}
 
 {% block content %}
+<section class="back-container">
+  <div class="back-airtime">
+      <div><i class="fa-solid fa-arrow-left"></i></div> 
+             <p>Airtime</p>
+  </div>
+  <div class="back-history"><p>History</p></div>
+</section>
 <section class="process__section">
     <img
-    src="{% static 'images/buy.png' %}"
+    src="{% static 'images/process.png' %}"
     alt="cool data plug logo"
     class="regiser__logo show"
     style="
@@ -27,7 +36,7 @@
       <span class="error__text" id="error">{{message}}</span>
         <div class="input__container">
           <div><i class="fa far fa-money-bill-alt" aria-hidden="true"></i></div>
-          <input type="number" name="amount" id="amount" placeholder="{{amount}} Naira" disabled>
+          <input type="number" name="amount" id="amount" placeholder="{{amount}} Naira" readonly>
         </div>
         
         <div class="input__container" id="pnumber__container">
@@ -36,19 +45,19 @@
         </div>
 
         <div class="by-pass">
-            <p>Bypass Number Validator</p>
-            <input type="checkbox" name="" id="">
+          <input type="checkbox" name="bypass" id="bypass">
+            <label for="bypass">Bypass Number Validator</label>
         </div>
 
-        <div class="by-pass">
-            <!-- <p>Bypass Number Validator</p>
+        <!-- <div class="by-pass">
+            <p>Bypass Number Validator</p>
             <label class="switch">
                 <input type="checkbox">
                 <span class="slider round"></span>
               </label>
         </div> -->
     
-        <button type="submit" id="btn">BUY</button>
+        <button type="submit" id="btn">Purchase</button>
       </form>
 </section>
 {% endblock content %}

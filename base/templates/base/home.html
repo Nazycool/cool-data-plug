@@ -1,4 +1,5 @@
 {% extends "main.html" %}
+{% load static %}
 
 {% block content %}
 
@@ -82,5 +83,6 @@
 {% endblock content %}
 
 {% block script %}
-<script src="../js/script.js"></script>
+<script src="{% static '/js/cool_register.js' %}"></script>
+{% comment %} <script src="{% static 'js/cool_register.js' %}"></script> {% endcomment %}
 {% endblock script %}

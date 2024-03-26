@@ -1,0 +1,68 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block style %}
+{% endblock style %}
+
+{% block content %}
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero error iste odio libero, consectetur eos nam nemo debitis incidunt eum, nisi quos necessitatibus, maxime distinctio quas facere magni amet fuga.</p>
+<p class="click">Click</p>
+<div class="pop_up">
+    <div class="pop_up_cancel">
+        <img class="cancel" src="{% static 'images/cancel.png' %}" alt="pop up image">
+    </div>
+    <div class="pop_up_image">
+        <img  src="{% static 'images/pop-image.png' %}" alt="pop up image">
+    </div>
+
+    <div class="pop_up_content">
+        <h4 class="warning">Succesful</h4>
+        
+        <h4 class="pop_text">Your 2GB Data Purchase was Succesful</h4>
+        <p>Thanks for using this service</p>
+    </div>
+
+    <button type="button" class="pop__btn">
+        <i class="fa-solid fa-arrow-left" ></i>
+        Go Back
+    </button>
+</div>
+
+{% endblock content %}
+
+{% block script %}
+<script>
+    let popUp = document.querySelector('.pop_up');
+    let click = document.querySelector('.click');
+    let cancel = document.querySelector('.cancel');
+
+    click.addEventListener('click', function () {
+        showPopUp();
+    });
+    cancel.addEventListener('click', function () {
+        hidePopUp();
+    });
+
+
+
+    function showPopUp() {
+        popUp.style.opacity = "1";
+        popUp.style.pointerEvents = "auto";  
+        popUp.style.userSelect = "auto";
+
+        document.body.style.backgroundColor = 'grey';
+        document.body.style.pointerEvents = 'none';
+        document.body.style.userSelect = 'none';
+          }
+    function hidePopUp() {
+        popUp.style.opacity = "0";
+        popUp.style.pointerEvents = "none";  
+        popUp.style.userSelect = "none";
+
+        document.body.style.backgroundColor = '#eee';
+        document.body.style.pointerEvents = 'auto';
+        document.body.style.userSelect = 'auto';
+          }
+</script>
+{% endblock script %}
+

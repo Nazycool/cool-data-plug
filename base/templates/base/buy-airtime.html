@@ -2,15 +2,28 @@
 {% load static %}
 
 {% block title %}Buy Airtime{% endblock title %}
-{% block style %}<link rel="stylesheet" href="{% static 'css/buy-airtime.css' %}" />{% endblock style %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/buy-airtime.css' %}" />
+<link rel="stylesheet" href="{% static 'css/back-header-style.css' %}" />
+{% endblock style %}
 
 {% block content %}
+<section class="back-container">
+    <div class="back-airtime">
+        <div><i class="fa-solid fa-arrow-left"></i></div> 
+               <p>Airtime</p>
+    </div>
+    <div class="back-history"><p>History</p></div>
+</section>
 <section class="buy__airtime">
+    <form action="" method="post" onsubmit="return ValidateAirtimeForm()">
+        {% csrf_token %}
     <div class="airtime__input">
         <div><i class="fa far fa-money-bill-alt" aria-hidden="true"></i></div>
-        <input type="number" name="amount" id="amount" placeholder="Other amount">
+        <input type="number" name="amount" id="amount" placeholder="Other amount" oninput="clearAmount()" required>
     </div>
 
+    <p class="quick__amount">Quick Amount</p>
     <div class="amount__grid">
         <div class="prices ">N50</div>
         <div class="prices">N100</div>
@@ -51,13 +64,14 @@
         </div>
     </div>
 
-    <form action="">
-        <div class="airtime__input">
+   
+        <input type="text" name="service" id="service" style="display: none;" readonly>
+        <div class="airtime__input phone__input">
             <div><i class="fa fa-phone" aria-hidden="true"></i></div>     
-            <input type="number" name="phone" id="phone" placeholder="Enter Phone Number">
+            <input type="number" name="phone" id="phone" placeholder="Enter Phone Number" required>
         </div>
 
-        <button type="submit" id="btn">PURCHASE</button>
+        <button type="submit" id="purchase">Purchase</button>
     </form>
 
 </section>
@@ -67,7 +81,14 @@
 <script>
    const all_prices = document.querySelectorAll(".prices");
    const service__item = document.querySelectorAll(".service__item");
+
    let amount = document.getElementById("amount");
+   let service = document.getElementById('service');
+   let phone = document.getElementById('phone');
+
+   let purchase = document.getElementById('purchase');
+
+   const servicesArray = ['9Mobile', 'Glo', 'Airtel', 'MTN'];
 
 all_prices.forEach((btn) => {
   btn.addEventListener("click", function () {
@@ -77,11 +98,12 @@ all_prices.forEach((btn) => {
     });
 
     var newAmount = btn.textContent.slice(1);
-   newAmount = parseInt(newAmount);
+   var amountInNumber = parseFloat(newAmount.replace(/,/g, ''));
+ 
  
 
     btn.classList.add("active");
-    amount.value = newAmount;
+    amount.value = amountInNumber;
   });
 });
 service__item.forEach((btn) => {
@@ -92,9 +114,52 @@ service__item.forEach((btn) => {
     });
 
     btn.classList.add("active");
+   service.value = btn.textContent.trim();
+
+
+
+    
   });
 });
 
+function clearAmount() {
+    all_prices.forEach((container) => {
+      container.classList.remove("active");
+     
+    });
 
+}
+
+// Validating Airtime form
+function ValidateAirtimeForm() {
+
+  if (amount.value == "") {
+    showAlert("Amount must be choosen");
+   
+    return false;
+  }
+  if (service.value == "") {
+    showAlert("Service must be choosen");
+   
+    return false;
+  }
+
+  //Phone Number Conditions
+  if (phone.value.length > 11) {
+    showAlert("Phone number must not exceed 11 digits");
+
+    return false;
+  }
+
+  if (phone.value.length < 11) {
+    showAlert("Incomplete phone number");
+
+    return false;
+  }
+
+  return true;
+}
 </script>
+<script src="{% static 'js/main.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
 {% endblock script %}
